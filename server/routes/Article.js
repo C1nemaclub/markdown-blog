@@ -4,7 +4,7 @@ const Article = require('../models/ArticlesModel');
 const { adminProtected } = require('../middleware/adminProtected');
 
 router.get('/', adminProtected, async (req, res) => {
-  let query = Article.find();
+  let query = Article.find().sort({ createdAt: -1 });
   if (req.query.title != null && req.query.title != '') {
     query = query.regex('title', new RegExp(req.query.title, 'i'));
   }
