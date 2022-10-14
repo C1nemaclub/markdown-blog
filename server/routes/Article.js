@@ -18,6 +18,24 @@ router.get('/', adminProtected, async (req, res) => {
   }
 });
 
+router.get('/:id', async (req, res) => {
+  const articleId = req.params.id;
+  try {
+    const article = Article.findById(articleId);
+    if (article) {
+      res.status(200).json(article);
+    } else {
+      res.status(400).json({
+        message: 'Article not found',
+      });
+    }
+  } catch (e) {
+    res.status(400).json({
+      message: e.message,
+    });
+  }
+});
+
 router.post('/new', async (req, res) => {
   const { title, markdown, tags } = req.body;
 
