@@ -1,19 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import Styled from 'styled-components';
 import { useStateContext } from '../context/StateContext';
 
 export default function Form({ props, action }) {
   const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     title: props.title || '',
     description: props.description || '',
     markdown: props.markdown || '',
+    language: props.language || '',
   });
   const [tags, setTags] = useState('');
   const [tagArray, setTagArray] = useState(props.tags || []);
 
-  const { createArticle, editArticle, makeRequest } = useStateContext();
+  const { createArticle, editArticle, makeRequest, searchArticles } =
+    useStateContext();
   function onSubmit(e) {
     e.preventDefault();
     if (action === 'create') {
@@ -22,8 +25,10 @@ export default function Form({ props, action }) {
         description: formData.description,
         markdown: formData.markdown,
         tags: tagArray,
+        language: formData.language,
       });
       makeRequest();
+      searchArticles('');
       navigate(`/`);
     } else if (action === 'edit') {
       editArticle(
@@ -32,9 +37,11 @@ export default function Form({ props, action }) {
           description: formData.description,
           markdown: formData.markdown,
           tags: tagArray,
+          language: formData.language,
         },
         props._id
       );
+      searchArticles('');
       makeRequest();
       navigate(`/`);
     }
@@ -111,6 +118,16 @@ export default function Form({ props, action }) {
             id='tags'
             value={tags}
             onChange={(e) => onTagChange(e)}
+          />
+        </div>
+        <div className='input-group'>
+          <label htmlFor='title'>Type</label>
+          <input
+            type='text'
+            name='language'
+            id='title'
+            value={formData.language}
+            onChange={(e) => onChange(e)}
           />
         </div>
         <div className='input-group'>

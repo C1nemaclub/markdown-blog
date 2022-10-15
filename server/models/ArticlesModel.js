@@ -10,9 +10,16 @@ const articleSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    description: {
+      type: String,
+      required: true,
+    },
     markdown: {
       type: String,
       required: true,
+    },
+    language: {
+      type: String,
     },
     tags: [
       {

@@ -6,11 +6,13 @@ import { useStateContext } from '../context/StateContext';
 
 export default function Admin() {
   const navigate = useNavigate();
-  const { deleteArticle, canAccess, checkAdminPassword } = useStateContext();
+  const { deleteArticle, canAccess, checkAdminPassword, searchArticles } =
+    useStateContext();
   const [passInput, setPassInput] = useState('');
 
   function handleDelete(id) {
     deleteArticle(id);
+    searchArticles('');
   }
 
   function verifyAccess(e) {

@@ -1,5 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+
 const Context = createContext();
 
 export const StateContext = ({ children }) => {
@@ -65,6 +67,21 @@ export const StateContext = ({ children }) => {
     setArticles(response.data);
   }
 
+  async function searchArticlesByLanguage(query) {
+    const options = {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        Authorization: 'Bearer ' + adminPassword,
+      },
+    };
+    const response = await axios.get(
+      `http://localhost:3000/articles/language?search=${query}`,
+      options
+    );
+    setArticles(response.data);
+  }
+
   async function createArticle(data) {
     const options = {
       method: 'POST',
@@ -78,11 +95,8 @@ export const StateContext = ({ children }) => {
       data,
       options
     );
-    setArticles(response.data);
   }
   async function editArticle(data, id) {
-    console.log(id);
-
     const options = {
       method: 'PUT',
       headers: {
@@ -122,6 +136,7 @@ export const StateContext = ({ children }) => {
         searchArticles,
         canAccess,
         checkAdminPassword,
+        searchArticlesByLanguage,
       }}
     >
       {children}

@@ -24,10 +24,23 @@ router.get('/', async (req, res) => {
   if (req.query.search != null && req.query.search != '') {
     query = query.regex('tags', new RegExp(req.query.search, 'i'));
   }
+  try {
+    const articles = await query.exec();
+    res.status(200).json(articles);
+  } catch (e) {
+    res.status(400).json({
+      message: e.message,
+    });
+  }
+});
 
-  // if (req.query.search != null && req.query.search != '') {
-  //   query = query.regex('title', new RegExp(req.query.search, 'i'));
-  // }
+router.get('/language', async (req, res) => {
+  console.log('language');
+
+  let query = Article.find().sort({ createdAt: -1 });
+  if (req.query.search != null && req.query.search != '') {
+    query = query.regex('language', new RegExp(req.query.search, 'i'));
+  }
   try {
     const articles = await query.exec();
     res.status(200).json(articles);
@@ -57,9 +70,10 @@ router.get('/:id', async (req, res) => {
 });
 
 router.post('/new', adminProtected, async (req, res) => {
-  const { title, markdown, tags } = req.body;
+  const { title, markdown, tags, description, language } = req.body;
+  console.log(req.body);
 
-  if (!title || !markdown || !tags) {
+  if (!title || !markdown || !tags || !description) {
     res.status(400).json({
       message: 'Please fill all the fields',
     });
@@ -70,6 +84,8 @@ router.post('/new', adminProtected, async (req, res) => {
       title: title,
       markdown: markdown,
       tags: tags,
+      description: description,
+      language: language,
     });
     await article.save();
     res.status(200).json(article);
@@ -110,10 +126,10 @@ router.delete('/delete/:id', adminProtected, async (req, res) => {
 });
 
 router.put('/edit/:id', adminProtected, async (req, res) => {
-  const { title, markdown, tags } = req.body;
+  const { title, markdown, tags, description, language } = req.body;
   const articleId = req.params.id;
 
-  if (!title || !markdown || !tags || !articleId) {
+  if (!title || !markdown || !tags || !articleId || !description) {
     res.status(400).json({
       message: 'Please fill all the fields',
     });
@@ -125,6 +141,8 @@ router.put('/edit/:id', adminProtected, async (req, res) => {
       article.title = title;
       article.markdown = markdown;
       article.tags = tags;
+      article.description = description;
+      article.language = language;
       await article.save();
       res.status(200).json(article);
     } else {

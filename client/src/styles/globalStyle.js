@@ -10,7 +10,6 @@ const GlobalStyle = createGlobalStyle`
 }
   .page {
   width: 85%;
-  border: 1px solid red;
   margin-left: auto;
   padding: 1rem;
   display: flex;
