@@ -29,6 +29,14 @@ export default function ArticleCard({ access, handleClick }) {
           <div className='button-container'>
             <button>Read More</button>
             <button>Edit</button>
+            <button>
+              <Link
+                to={`/article/edit/${article._id}`}
+                state={{ data: article }}
+              >
+                Edit2
+              </Link>
+            </button>
             <button onClick={() => handleClick(article._id)}>Delete</button>
           </div>
         )}

@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FaSearch } from 'react-icons/fa';
 import Styled from 'styled-components';
+import { useStateContext } from '../context/StateContext';
 
 export default function Sidebar() {
+  const [search, setSearch] = useState('');
+
+  const { searchArticles } = useStateContext();
   return (
     <Container>
       <div className='sidebar'>
@@ -19,8 +23,13 @@ export default function Sidebar() {
       </div>
       <div className='top-header'>
         <div className='group-input'>
-          <input type='text' placeholder='Searh bar...' />
-          <FaSearch />
+          <input
+            type='text'
+            placeholder='Search bar...'
+            onChange={(e) => setSearch(e.target.value)}
+            value={search}
+          />
+          <FaSearch onClick={() => searchArticles(search)} />
         </div>
       </div>
     </Container>

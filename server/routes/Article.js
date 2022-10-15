@@ -3,11 +3,31 @@ const router = express.Router();
 const Article = require('../models/ArticlesModel');
 const { adminProtected } = require('../middleware/adminProtected');
 
-router.get('/', adminProtected, async (req, res) => {
+router.get('/x', async (req, res) => {
   let query = Article.find().sort({ createdAt: -1 });
   if (req.query.title != null && req.query.title != '') {
     query = query.regex('title', new RegExp(req.query.title, 'i'));
   }
+
+  try {
+    const articles = await query.exec();
+    res.status(200).json(articles);
+  } catch (e) {
+    res.status(400).json({
+      message: e.message,
+    });
+  }
+});
+
+router.get('/', async (req, res) => {
+  let query = Article.find().sort({ createdAt: -1 });
+  if (req.query.search != null && req.query.search != '') {
+    query = query.regex('tags', new RegExp(req.query.search, 'i'));
+  }
+
+  // if (req.query.search != null && req.query.search != '') {
+  //   query = query.regex('title', new RegExp(req.query.search, 'i'));
+  // }
   try {
     const articles = await query.exec();
     res.status(200).json(articles);
@@ -36,7 +56,7 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-router.post('/new', async (req, res) => {
+router.post('/new', adminProtected, async (req, res) => {
   const { title, markdown, tags } = req.body;
 
   if (!title || !markdown || !tags) {
@@ -60,7 +80,7 @@ router.post('/new', async (req, res) => {
   }
 });
 
-router.delete('/delete/:id', async (req, res) => {
+router.delete('/delete/:id', adminProtected, async (req, res) => {
   const articleId = req.params.id;
 
   if (!articleId) {
@@ -89,7 +109,7 @@ router.delete('/delete/:id', async (req, res) => {
   }
 });
 
-router.put('/edit/:id', async (req, res) => {
+router.put('/edit/:id', adminProtected, async (req, res) => {
   const { title, markdown, tags } = req.body;
   const articleId = req.params.id;
 

@@ -6,19 +6,40 @@ import { useStateContext } from '../context/StateContext';
 
 export default function Admin() {
   const navigate = useNavigate();
-  const { deleteArticle } = useStateContext();
+  const { deleteArticle, canAccess, checkAdminPassword } = useStateContext();
+  const [passInput, setPassInput] = useState('');
 
   function handleDelete(id) {
     deleteArticle(id);
   }
 
+  function verifyAccess(e) {
+    e.preventDefault();
+    checkAdminPassword(passInput);
+  }
+
   return (
     <div className='page admin-page'>
-      <button onClick={() => navigate('/')}>Admin</button>
+      <button onClick={() => navigate('/')}>Home</button>
+      <button onClick={() => console.log('')}>test</button>
       <button onClick={() => navigate('/admin/new')}>New</button>
-      <ArticlesContainer>
-        <ArticleCard access='admin' handleClick={handleDelete} />
-      </ArticlesContainer>
+      {canAccess && (
+        <ArticlesContainer>
+          <ArticleCard access='admin' handleClick={handleDelete} />
+        </ArticlesContainer>
+      )}
+      {!canAccess && (
+        <div className='admin-password'>
+          <form onSubmit={(e) => verifyAccess(e)}>
+            <input
+              type='text'
+              placeholder='password'
+              value={passInput}
+              onChange={(e) => setPassInput(e.target.value)}
+            />
+          </form>
+        </div>
+      )}
     </div>
   );
 }
@@ -31,5 +52,7 @@ width: 100%;
 flex-wrap: wrap;
 gap:  10rem 1rem;
 justify-content: center;
+
+
 
 `;
