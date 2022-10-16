@@ -8,7 +8,7 @@ export default function Home() {
   const navigate = useNavigate();
   return (
     <div className='page home-page'>
-      {/* <button onClick={() => navigate('/admin')}>Admin</button> */}
+      <button onClick={() => navigate('/admin')}>Admin</button>
       <ArticlesContainer>
         <ArticleCard />
       </ArticlesContainer>

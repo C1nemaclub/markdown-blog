@@ -23,7 +23,7 @@ export const StateContext = ({ children }) => {
       },
     };
     const response = await axios.post(
-      '/articles/passcheck',
+      'articles/passcheck',
       { password: inputPassword },
       options
     );
@@ -43,7 +43,7 @@ export const StateContext = ({ children }) => {
           Authorization: 'Bearer ' + adminPassword,
         },
       };
-      const response = await axios.get('/articles', options);
+      const response = await axios.get('articles', options);
       setArticles(response.data);
     }
     getData();
@@ -57,7 +57,7 @@ export const StateContext = ({ children }) => {
         Authorization: 'Bearer ' + adminPassword,
       },
     };
-    const response = await axios.get(`/articles?search=${query}`, options);
+    const response = await axios.get(`articles?search=${query}`, options);
     setArticles(response.data);
   }
 
@@ -70,7 +70,7 @@ export const StateContext = ({ children }) => {
       },
     };
     const response = await axios.get(
-      `/articles/language?search=${query}`,
+      `articles/language?search=${query}`,
       options
     );
     setArticles(response.data);
@@ -84,7 +84,7 @@ export const StateContext = ({ children }) => {
         Authorization: 'Bearer ' + adminPassword,
       },
     };
-    const response = await axios.post('/articles/new', data, options);
+    const response = await axios.post('articles/new', data, options);
   }
   async function editArticle(data, id) {
     const options = {
@@ -94,7 +94,7 @@ export const StateContext = ({ children }) => {
         Authorization: 'Bearer ' + adminPassword,
       },
     };
-    const response = await axios.put(`/articles/edit/${id}`, data, options);
+    const response = await axios.put(`articles/edit/${id}`, data, options);
   }
 
   async function deleteArticle(id) {
@@ -105,7 +105,7 @@ export const StateContext = ({ children }) => {
         Authorization: 'Bearer ' + adminPassword,
       },
     };
-    const response = await axios.delete(`/articles/delete/${id}`, options);
+    const response = await axios.delete(`articles/delete/${id}`, options);
   }
 
   return (

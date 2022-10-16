@@ -154,4 +154,18 @@ router.put('/edit/:id', adminProtected, async (req, res) => {
   }
 });
 
+router.post('/passcheck', (req, res) => {
+  const password = req.body.password;
+  if (password === process.env.ADMIN_KEY) {
+    res.json({
+      canAccess: true,
+      adminPass: process.env.ADMIN_KEY,
+    });
+  } else {
+    res.json({
+      canAccess: false,
+    });
+  }
+});
+
 module.exports = router;

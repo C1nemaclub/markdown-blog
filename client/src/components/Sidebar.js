@@ -11,6 +11,9 @@ import {
   FaHome,
   FaJsSquare,
   FaCode,
+  FaGithub,
+  FaLinkedin,
+  FaEnvelope,
 } from 'react-icons/fa';
 
 const links = [
@@ -108,9 +111,25 @@ export default function Sidebar() {
       <div className='sidebar'>
         <ul>
           <li>
-            <FaCode />
+            <Link to='/'>
+              <FaCode />
+            </Link>
           </li>
           {linkElements}
+          <li className='socials'>
+            <Link to='https://github.com/C1nemaclub'>
+              <FaGithub className='icon icon-socials' />
+            </Link>
+            <Link to='https://www.linkedin.com/in/santiago-velasquez-426719243/'>
+              <FaLinkedin className='icon icon-socials' />
+            </Link>
+            <Link
+              to='#'
+              onClick={() => (window.location = 'mailto:yourmail@domain.com')}
+            >
+              <FaEnvelope className='icon icon-socials' />
+            </Link>
+          </li>
         </ul>
       </div>
       <div className='top-header'>
@@ -149,9 +168,7 @@ const Container = Styled.div`
         display: flex;
         flex-direction: column;
         justify-content:center;
-        height: 45%;
-        
-
+        height: 60%;
         li{
             margin-bottom: .6rem;
             display: flex;
@@ -181,8 +198,22 @@ const Container = Styled.div`
                 color: #fff;
                 font-size: 4rem;
               }
-          
         }
+        .socials{
+          margin-top: auto;
+                display: flex;
+                justify-content: center;
+                gap: .5rem;
+                align-items: center;
+                padding: .2rem;
+                border-radius: 5px;
+                svg{
+                  font-size: 1.6rem;
+                  &:hover{
+                    color: dodgerblue;
+                  }
+                }
+              }
         }
         .activeLink{
           background: rgba(100,100,100,.8);
