@@ -35,8 +35,6 @@ router.get('/', async (req, res) => {
 });
 
 router.get('/language', async (req, res) => {
-  console.log('language');
-
   let query = Article.find().sort({ createdAt: -1 });
   if (req.query.search != null && req.query.search != '') {
     query = query.regex('language', new RegExp(req.query.search, 'i'));
@@ -71,7 +69,6 @@ router.get('/:id', async (req, res) => {
 
 router.post('/new', adminProtected, async (req, res) => {
   const { title, markdown, tags, description, language } = req.body;
-  console.log(req.body);
 
   if (!title || !markdown || !tags || !description) {
     res.status(400).json({

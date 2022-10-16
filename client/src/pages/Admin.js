@@ -55,6 +55,4 @@ flex-wrap: wrap;
 gap:  10rem 1rem;
 justify-content: center;
 
-
-
 `;

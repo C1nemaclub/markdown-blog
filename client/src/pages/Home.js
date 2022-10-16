@@ -23,5 +23,4 @@ width: 100%;
 flex-wrap: wrap;
 gap:  5rem 1rem;
 justify-content: flex-start;
-padding: 1rem;
 `;

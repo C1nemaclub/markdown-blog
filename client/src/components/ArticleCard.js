@@ -18,7 +18,7 @@ export default function ArticleCard({ access, handleClick }) {
           />
         </div> */}
         <p>{article.description}</p>
-        <span className='date'>{article.createdAt}</span>
+        <span className='date'>{article.date}</span>
         <button>
           <Link to={`/article/${article._id}`} state={{ data: article }}>
             READ MORE...

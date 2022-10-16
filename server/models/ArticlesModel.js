@@ -10,6 +10,9 @@ const articleSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    date: {
+      type: String,
+    },
     description: {
       type: String,
       required: true,
@@ -42,6 +45,13 @@ articleSchema.pre('validate', function (next) {
   if (this.markdown) {
     this.sanitizedHtml = dompurify.sanitize(marked.parse(this.markdown));
   }
+
+  const currentDate = new Date();
+  const month = currentDate.toLocaleString('default', { month: 'long' });
+  const isoDate = currentDate.toISOString().substring(0, 10);
+  const day = isoDate.split('-')[2];
+  const year = isoDate.split('-')[0];
+  this.date = `${month} ${day}, ${year}`;
 
   next();
 });

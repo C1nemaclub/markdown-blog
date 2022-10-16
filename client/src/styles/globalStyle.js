@@ -8,20 +8,20 @@ const GlobalStyle = createGlobalStyle`
   padding: 0;
   margin: 0;
 }
+body{
+  overflow-x: hidden
+}
+
   .page {
   width: 85%;
   margin-left: auto;
   padding: 1rem;
-  display: flex;
+  /* display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: center; */
   .admin-password{
-  position: absolute;
-  width: 100%;
-  background: black;
-  height: 100%;
-  min-height: 100vh;
-  z-index: 1000;
+
+  //z-index: 1000;
   form {
     position: absolute;
     top: 50%;
@@ -36,10 +36,22 @@ const GlobalStyle = createGlobalStyle`
 }
   
 }
-`;
-
-export const Arrticle = Styled.div`
-  border: 1px solid pink;
+.view-article-page{
+  display: flex;
+  margin-right: 1.5rem;
+  justify-content: space-around;
+  margin-top: 2rem;
+}
+.admin-page{
+    border: 1px solid red;
+    width: 100%;
+    min-height: 100vh;
+    height: 100%;
+    position: absolute;
+    background: red;
+    left: 0;
+    top: 0;
+  }
 `;
 
 export default GlobalStyle;
