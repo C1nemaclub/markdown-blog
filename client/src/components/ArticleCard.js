@@ -19,14 +19,14 @@ export default function ArticleCard({ access, handleClick }) {
         </div> */}
         <p>{article.description}</p>
         <span className='date'>{article.date}</span>
-        <button>
+        <button className='btn read-btn'>
           <Link to={`/article/${article._id}`} state={{ data: article }}>
             READ MORE...
           </Link>
         </button>
         {access && (
           <div className='button-container'>
-            <button>
+            <button className='btn edit-btn'>
               <Link
                 to={`/article/edit/${article._id}`}
                 state={{ data: article }}
@@ -34,7 +34,12 @@ export default function ArticleCard({ access, handleClick }) {
                 Edit
               </Link>
             </button>
-            <button onClick={() => handleClick(article._id)}>Delete</button>
+            <button
+              onClick={() => handleClick(article._id)}
+              className='btn danger-btn'
+            >
+              Delete
+            </button>
           </div>
         )}
       </Card>
@@ -89,7 +94,7 @@ const Card = Styled.div`
     .date{
       color: darkgray;
     }
-    button{
+    .read-btn{
         width: 130px;
         height: 50px;
         border-radius: 5px;
@@ -98,13 +103,47 @@ const Card = Styled.div`
         border: 0;
         cursor: pointer;
         background-color: transparent;
-
       a{
         text-decoration: none;
         color: dodgerblue;
         transition: .14s ease-in-out;
         &:hover{
           font-weight: 700;
+        }
+      }
+    }
+    .button-container{
+      width: 100%;
+      margin-left: auto;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      padding: 0rem .3rem;
+      gap: 1rem;
+      .btn{
+        border: 1px solid #ccc;
+        width: 130px;
+        height: 50px;
+        border-radius: 5px;
+        font-size: 1.2rem;
+        cursor: pointer;
+        border: 0;
+        a{
+          color: #fff;
+          text-decoration: none;
+        }
+        &:hover{
+          filter: saturate(200%);
+        }
+      }
+      .edit-btn{
+        background: dodgerblue;
+      }
+      .danger-btn{
+        background: #C70000;
+        color: #fff;
+        a{
+          color: white;
         }
       }
     }

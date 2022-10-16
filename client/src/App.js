@@ -10,6 +10,10 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import GlobalStyle from './styles/globalStyle';
 
 function App() {
+  useEffect(() => {
+    document.title = 'Markdown blog';
+  }, []);
+
   return (
     <div className='App'>
       <Router>

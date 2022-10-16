@@ -12,29 +12,20 @@ body{
   overflow-x: hidden
 }
 
+.arrow-left{
+        font-size: 2rem;
+        cursor: pointer;
+        transition: .1s ease-in-out;
+        color: black;
+        &:hover{
+          transform: scale(1.2)
+        }
+      }
+
   .page {
   width: 85%;
   margin-left: auto;
   padding: 1rem;
-  /* display: flex;
-  justify-content: center;
-  align-items: center; */
-  .admin-password{
-
-  //z-index: 1000;
-  form {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    input{
-      font-size: 1.2rem;
-      padding: .4rem 1rem;
-      border-radius: 20px;
-    }
-  }
-}
-  
 }
 .view-article-page{
   display: flex;
@@ -43,14 +34,6 @@ body{
   margin-top: 2rem;
 }
 .admin-page{
-    border: 1px solid red;
-    width: 100%;
-    min-height: 100vh;
-    height: 100%;
-    position: absolute;
-    background: red;
-    left: 0;
-    top: 0;
   }
 `;
 

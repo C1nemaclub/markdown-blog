@@ -9,7 +9,6 @@ export default function ViewArticle() {
   const location = useLocation();
   const data = location.state?.data;
   const { articles } = useStateContext();
-  console.log(data);
 
   const recentArticles = articles
     .map((article) => {

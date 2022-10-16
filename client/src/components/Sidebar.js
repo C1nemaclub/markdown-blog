@@ -63,12 +63,7 @@ export default function Sidebar() {
   }
 
   const linkElements = navLinks.map((link, index) => {
-    // const activeStyle = {
-    //   backgroundColor: link.active ? 'rgba(100,100,100,0.5)' : '',
-    //   color: 'white',
-    // };
     const customClass = link.active ? 'activeLink' : '';
-
     return (
       <li
         className={customClass}
