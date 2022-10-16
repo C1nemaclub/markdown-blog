@@ -46,7 +46,7 @@ const ArticleContainer = Styled.div`
     border-radius: 5px;
     width: 60%;
     position: relative;
-    padding: 1rem;
+    padding: 1rem 2rem;
     height: 100%;
     .article-title{
       font-size: 2.6rem;
@@ -67,6 +67,10 @@ const ArticleContainer = Styled.div`
       padding: 1rem;
       width: 65%;
       height: 100%;
+    }
+    img{
+      max-width: 90%;
+      object-fit: cover;
     }
     
 `;
