@@ -1,14 +1,16 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { toast } from 'react-hot-toast';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 
 const Context = createContext();
 
 export const StateContext = ({ children }) => {
   const [articles, setArticles] = useState([]);
+  const [singleArticle, setSingleArticle] = useState({});
   const [request, setRequest] = useState(false);
   const [adminPassword, setAdminPassword] = useState('');
   const [canAccess, setCanAccess] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   function makeRequest() {
     setRequest((prev) => !prev);
@@ -84,7 +86,7 @@ export const StateContext = ({ children }) => {
         Authorization: 'Bearer ' + adminPassword,
       },
     };
-    const response = await axios.post('articles/new', data, options);
+    const response = await axios.post('/articles/new', data, options);
   }
   async function editArticle(data, id) {
     const options = {
@@ -94,7 +96,7 @@ export const StateContext = ({ children }) => {
         Authorization: 'Bearer ' + adminPassword,
       },
     };
-    const response = await axios.put(`articles/edit/${id}`, data, options);
+    const response = await axios.put(`/articles/edit/${id}`, data, options);
   }
 
   async function deleteArticle(id) {
@@ -106,18 +108,38 @@ export const StateContext = ({ children }) => {
       },
     };
     const response = await axios.delete(`articles/delete/${id}`, options);
+    if (response.status === 200) {
+      toast.success('Article successfully deleted.');
+    }
+  }
+
+  async function searchArticleById(id) {
+    const options = {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        Authorization: 'Bearer ' + adminPassword,
+      },
+    };
+    setIsLoading(true);
+    const response = await axios.get(`/articles/searchId/${id}`, options);
+    setSingleArticle(response.data);
+    setIsLoading(false);
   }
 
   return (
     <Context.Provider
       value={{
         articles,
+        singleArticle,
         createArticle,
         deleteArticle,
         editArticle,
         makeRequest,
         searchArticles,
+        searchArticleById,
         canAccess,
+        isLoading,
         checkAdminPassword,
         searchArticlesByLanguage,
       }}

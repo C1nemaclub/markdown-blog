@@ -1,18 +1,30 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Markdown from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { lucario } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import { useStateContext } from '../context/StateContext';
 import Styled from 'styled-components';
+import { useParams } from 'react-router-dom';
+import Loader from './Loader';
 
-export default function Article({
-  props: { title, sanitizedHtml, tags, date, markdown, description },
-}) {
+export default function Article(props) {
+  const { id } = useParams();
+  // {props: { title, sanitizedHtml, tags, date, markdown, description },}
+
+  const { searchArticleById, singleArticle, isLoading } = useStateContext();
+  useEffect(() => {
+    searchArticleById(id);
+  }, [id]);
+
+  if (isLoading) {
+    return <Loader />;
+  }
+
   return (
     <ArticleContainer>
-      <h2 className='article-title'>{title}</h2>
-      <span className='article-date'>{date}</span>
-      <p className='article-desc'>{description}</p>
+      <h2 className='article-title'>{singleArticle.title}</h2>
+      <span className='article-date'>{singleArticle.date}</span>
+      <p className='article-desc'>{singleArticle.description}</p>
       <Markdown
         className='article-markdown'
         components={{
@@ -35,7 +47,7 @@ export default function Article({
           },
         }}
       >
-        {markdown}
+        {singleArticle.markdown}
       </Markdown>
     </ArticleContainer>
   );

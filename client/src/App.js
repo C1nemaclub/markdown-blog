@@ -1,17 +1,18 @@
 import './App.css';
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { Toaster } from 'react-hot-toast';
 import Sidebar from './components/Sidebar';
 import Home from './pages/Home';
 import Admin from './pages/Admin';
 import NewArticle from './pages/NewArticle';
 import ViewArticle from './pages/ViewArticle';
 import EditArticle from './pages/EditArticle';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import GlobalStyle from './styles/globalStyle';
 
 function App() {
   useEffect(() => {
-    document.title = 'Markdown blog';
+    document.title = 'CinemaCodes Blog';
   }, []);
 
   return (
@@ -19,6 +20,7 @@ function App() {
       <Router>
         <GlobalStyle />
         <Sidebar />
+        <Toaster />
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/admin'>
@@ -27,6 +29,7 @@ function App() {
           </Route>
           <Route path='/article/:id' element={<ViewArticle />} />
           <Route path='/article/edit/:id' element={<EditArticle />} />
+          <Route path='*' element={<Home />} />
         </Routes>
       </Router>
     </div>

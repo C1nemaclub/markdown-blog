@@ -117,12 +117,20 @@ export default function Sidebar() {
           </li>
           {linkElements}
           <li className='socials'>
-            <Link to='https://github.com/C1nemaclub'>
+            <a
+              href='https://github.com/C1nemaclub'
+              target='_blank'
+              rel='noreferrer'
+            >
               <FaGithub className='icon icon-socials' />
-            </Link>
-            <Link to='https://www.linkedin.com/in/santiago-velasquez-426719243/'>
+            </a>
+            <a
+              href='https://www.linkedin.com/in/santiago-velasquez-426719243/'
+              target='_blank'
+              rel='noreferrer'
+            >
               <FaLinkedin className='icon icon-socials' />
-            </Link>
+            </a>
             <Link
               to='#'
               onClick={() => (window.location = 'mailto:yourmail@domain.com')}

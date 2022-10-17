@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Styled from 'styled-components';
 import ArticleCard from '../components/ArticleCard';
 import { useStateContext } from '../context/StateContext';
-import { FaKey, FaArrowLeft } from 'react-icons/fa';
+import { FaKey } from 'react-icons/fa';
 
 export default function Admin() {
   const navigate = useNavigate();

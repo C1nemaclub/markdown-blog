@@ -8,11 +8,11 @@ import Styled from 'styled-components';
 export default function ViewArticle() {
   const location = useLocation();
   const data = location.state?.data;
-  const { articles } = useStateContext();
+  const { articles, singleArticle } = useStateContext();
 
   const recentArticles = articles
     .map((article) => {
-      if (data.title === article.title) return;
+      if (singleArticle.title === article.title) return;
       return (
         <ArticleCard key={article._id}>
           <h3 className='article-title'>{article.title}</h3>

@@ -1,6 +1,4 @@
 import { createGlobalStyle } from 'styled-components';
-import Styled from 'styled-components';
-
 const GlobalStyle = createGlobalStyle`
 
 * {
@@ -26,6 +24,8 @@ body{
   width: 85%;
   margin-left: auto;
   padding: 1rem;
+  //min-height: 100vh;
+  height: 100%;
 }
 .view-article-page{
   display: flex;
@@ -33,8 +33,6 @@ body{
   justify-content: space-around;
   margin-top: 2rem;
 }
-.admin-page{
-  }
 `;
 
 export default GlobalStyle;
