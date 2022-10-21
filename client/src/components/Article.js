@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import Markdown from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { lucario } from 'react-syntax-highlighter/dist/cjs/styles/prism';
+import {
+  lucario,
+  okaidia,
+} from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import { useStateContext } from '../context/StateContext';
 import Styled from 'styled-components';
 import { useParams } from 'react-router-dom';
@@ -33,7 +36,7 @@ export default function Article(props) {
 
             return !inline && match ? (
               <SyntaxHighlighter
-                style={lucario}
+                style={okaidia}
                 PreTag='div'
                 language={match[1]}
                 children={String(children).replace(/\n$/, '')}
@@ -77,12 +80,15 @@ const ArticleContainer = Styled.div`
     pre{
       position: relative;
       padding: 1rem;
-      width: 65%;
+      //width: 65%;
       height: 100%;
+
     }
     img{
       max-width: 90%;
       object-fit: cover;
     }
-    
+    @media screen and (max-width: 1200px){
+      width: 80%;
+    }
 `;

@@ -2,6 +2,7 @@ import './App.css';
 import React, { useEffect } from 'react';
 import { Toaster } from 'react-hot-toast';
 import Sidebar from './components/Sidebar';
+import Footer from './components/Footer';
 import Home from './pages/Home';
 import Admin from './pages/Admin';
 import NewArticle from './pages/NewArticle';
@@ -31,6 +32,7 @@ function App() {
           <Route path='/article/edit/:id' element={<EditArticle />} />
           <Route path='*' element={<Home />} />
         </Routes>
+        <Footer />
       </Router>
     </div>
   );

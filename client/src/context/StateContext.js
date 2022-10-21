@@ -87,6 +87,11 @@ export const StateContext = ({ children }) => {
       },
     };
     const response = await axios.post('/articles/new', data, options);
+    if (response.status === 200) {
+      toast.success('Article successfully created');
+    } else {
+      toast.error('there was a problem creating the Article');
+    }
   }
   async function editArticle(data, id) {
     const options = {
@@ -97,6 +102,11 @@ export const StateContext = ({ children }) => {
       },
     };
     const response = await axios.put(`/articles/edit/${id}`, data, options);
+    if (response.status === 200) {
+      toast.success('Article successfully edited');
+    } else {
+      toast.error('there was a problem editing the Article');
+    }
   }
 
   async function deleteArticle(id) {
@@ -109,7 +119,9 @@ export const StateContext = ({ children }) => {
     };
     const response = await axios.delete(`articles/delete/${id}`, options);
     if (response.status === 200) {
-      toast.success('Article successfully deleted.');
+      toast.success('Article successfully deleted');
+    } else {
+      toast.error('there was a problem deleting the Article');
     }
   }
 

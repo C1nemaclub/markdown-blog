@@ -147,4 +147,7 @@ const Card = Styled.div`
         }
       }
     }
+    @media screen and (max-width: 824px){
+      width: 80%;
+    }
 `;

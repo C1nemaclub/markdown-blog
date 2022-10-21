@@ -4,7 +4,10 @@ import Styled from 'styled-components';
 import { useStateContext } from '../context/StateContext';
 import Markdown from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { lucario } from 'react-syntax-highlighter/dist/cjs/styles/prism';
+import {
+  lucario,
+  okaidia,
+} from 'react-syntax-highlighter/dist/cjs/styles/prism';
 
 export default function Form({ props, action }) {
   const navigate = useNavigate();
@@ -150,7 +153,7 @@ export default function Form({ props, action }) {
         <div className='input-group'>
           {action === 'edit' ? (
             <button type='submit' className='btn btn-edit'>
-              Edit
+              Save
             </button>
           ) : (
             <button type='submit' className='btn btn-post'>
@@ -169,7 +172,7 @@ export default function Form({ props, action }) {
 
               return !inline && match ? (
                 <SyntaxHighlighter
-                  style={lucario}
+                  style={okaidia}
                   PreTag='div'
                   language={match[1]}
                   children={String(children).replace(/\n$/, '')}

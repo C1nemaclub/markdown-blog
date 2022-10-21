@@ -1,7 +1,7 @@
 import { createGlobalStyle } from 'styled-components';
 const GlobalStyle = createGlobalStyle`
 
-* {
+*{
   font-family: 'Poppins', sans-serif;
   padding: 0;
   margin: 0;
@@ -9,6 +9,10 @@ const GlobalStyle = createGlobalStyle`
 body{
   overflow-x: hidden
 }
+html{
+  font-size: 100%;
+}
+
 
 .arrow-left{
         font-size: 2rem;
@@ -24,7 +28,7 @@ body{
   width: 85%;
   margin-left: auto;
   padding: 1rem;
-  //min-height: 100vh;
+  min-height: 100vh;
   height: 100%;
 }
 .view-article-page{
@@ -33,6 +37,26 @@ body{
   justify-content: space-around;
   margin-top: 2rem;
 }
+@media screen and (max-width: 1000px) {
+  html{
+    font-size: 90%;
+  }
+}
+@media screen and (max-width: 1200px){
+  .page{
+    width: 80%;
+  }
+  .view-article-page{
+    gap: 1.2rem;
+    align-items: flex-start;
+    flex-direction: column;
+    .recent-articles-container{
+      align-self: flex-start;
+    }
+  }
+}
+
+
 `;
 
 export default GlobalStyle;

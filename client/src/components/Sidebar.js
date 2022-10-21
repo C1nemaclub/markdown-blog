@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { FaSearch } from 'react-icons/fa';
 import Styled from 'styled-components';
 import { useStateContext } from '../context/StateContext';
@@ -15,6 +16,7 @@ import {
   FaLinkedin,
   FaEnvelope,
 } from 'react-icons/fa';
+import { FiX, FiMenu } from 'react-icons/fi';
 
 const links = [
   {
@@ -56,9 +58,18 @@ const links = [
 ];
 
 export default function Sidebar() {
+  const [menuState, setMenuState] = useState(false);
   const [search, setSearch] = useState('');
   const [navLinks, setNavLinks] = useState(links);
   const { searchArticles, searchArticlesByLanguage } = useStateContext();
+
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    if (window.screen.width <= 1200) {
+      setMenuState(true); // Close the navigation panel
+    }
+  }, [pathname, navLinks]);
 
   function onSearch(e) {
     e.preventDefault();
@@ -105,10 +116,18 @@ export default function Sidebar() {
     });
     searchArticlesByLanguage(link.type);
   }
+  function menuToggle() {
+    setMenuState((prev) => !prev);
+  }
 
   return (
     <Container>
-      <div className='sidebar'>
+      {menuState ? (
+        <FiMenu className='menu-icon menu-close' onClick={menuToggle} />
+      ) : (
+        <FiX className='menu-icon menu-open' onClick={menuToggle} />
+      )}
+      <div className='sidebar' style={{ left: menuState ? '-60%' : '0%' }}>
         <ul>
           <li>
             <Link to='/'>
@@ -162,14 +181,17 @@ export default function Sidebar() {
 }
 
 const Container = Styled.div`
+
     .sidebar{
     position: fixed;
     min-height:100vh;
     height: 100%;
-    min-width: 100px;
+    min-width: 130px;
     max-width: 250px;
     width: 10%;
     background-color: rgba(17,24,39, 0.9);
+    z-index: 1000;
+    transition: .14s ease-in-out;
     ul{
         padding: 1rem;
         list-style: none;
@@ -178,7 +200,7 @@ const Container = Styled.div`
         justify-content:center;
         height: 60%;
         li{
-            margin-bottom: .6rem;
+            margin-bottom: .8rem;
             display: flex;
             align-items: center;
             justify-content: flex-start;
@@ -190,7 +212,6 @@ const Container = Styled.div`
               font-size: 1.2rem;
             }
             a{
-              margin-bottom: .4rem;
               text-decoration: none;
               color: rgba(156,163,175,1);
               font-size: 1.1rem
@@ -277,4 +298,40 @@ const Container = Styled.div`
           color: dodgerblue;
         }
     }
+    .menu-icon{
+      font-size: 2.2rem;
+      position: absolute;
+      z-index: 999999;
+      left: 3%;
+      top: 3%;
+      cursor: pointer;
+      display: none;
+    }
+    .menu-open{
+      color: #fff;
+    }
+    .menu-close{
+      color: rgba(17,24,39, 0.9);
+    }
+    @media screen and (max-width: 1200px) {
+      .sidebar{
+        width: 16%;
+        ul li a{
+          font-size: .9rem;
+        }
+      }
+      .top-header{
+        margin-left: 14%;
+      }
+    }
+    @media screen and (max-width: 1200px){
+      .sidebar{
+        left: 60%;
+      }
+      .menu-icon{
+        display: block;
+      }
+    }
+
+
 `;

@@ -68,5 +68,5 @@ const ArticleCard = Styled.div`
           font-weight: 800;
         }
     }
-  
+
 `;
