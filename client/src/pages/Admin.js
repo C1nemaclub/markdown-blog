@@ -13,7 +13,7 @@ export default function Admin() {
 
   function handleDelete(id) {
     deleteArticle(id);
-    searchArticles('');
+    //searchArticles('');
   }
 
   function verifyAccess(e) {

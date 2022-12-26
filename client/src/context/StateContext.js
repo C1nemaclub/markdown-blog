@@ -79,6 +79,14 @@ export const StateContext = ({ children }) => {
   }
 
   async function createArticle(data) {
+    console.log(data);
+    const multiFormData = new FormData();
+    multiFormData.append('title', data.title);
+    multiFormData.append('description', data.description);
+    multiFormData.append('language', data.language);
+    multiFormData.append('markdown', data.markdown);
+    multiFormData.append('tags', data.tags);
+    multiFormData.append('file', data.file);
     const options = {
       method: 'POST',
       headers: {
@@ -86,7 +94,12 @@ export const StateContext = ({ children }) => {
         Authorization: 'Bearer ' + adminPassword,
       },
     };
-    const response = await axios.post('/articles/new', data, options);
+    const response = await axios.post('articles/new', multiFormData, {
+      headers: {
+        Authorization: 'Bearer ' + adminPassword,
+      },
+    });
+
     if (response.status === 200) {
       toast.success('Article successfully created');
     } else {
@@ -119,6 +132,11 @@ export const StateContext = ({ children }) => {
     };
     const response = await axios.delete(`articles/delete/${id}`, options);
     if (response.status === 200) {
+      setArticles((prev) => {
+        return prev.filter((article) => {
+          return article._id !== id;
+        });
+      });
       toast.success('Article successfully deleted');
     } else {
       toast.error('there was a problem deleting the Article');
