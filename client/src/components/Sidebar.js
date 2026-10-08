@@ -300,7 +300,7 @@ const Container = Styled.div`
     }
     .menu-icon{
       font-size: 2.2rem;
-      position: absolute;
+      position: fixed;
       z-index: 999999;
       left: 3%;
       top: 3%;

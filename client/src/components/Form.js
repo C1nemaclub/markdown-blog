@@ -18,6 +18,7 @@ export default function Form({ props, action }) {
     markdown: props.markdown || '',
     language: props.language || '',
   });
+  const [file, setFile] = useState(null);
   const [tags, setTags] = useState('');
   const [tagArray, setTagArray] = useState(props.tags || []);
 
@@ -32,6 +33,7 @@ export default function Form({ props, action }) {
         markdown: formData.markdown,
         tags: tagArray,
         language: formData.language,
+        file: file,
       });
       makeRequest();
       searchArticles('');
@@ -66,6 +68,11 @@ export default function Form({ props, action }) {
   function onTagChange(e) {
     const inputTags = e.target.value.split(',');
     setTags(e.target.value);
+  }
+
+  function onFileSelected(e) {
+    console.log(e.target.files[0]);
+    setFile(e.target.files[0]);
   }
 
   useEffect(() => {
@@ -160,6 +167,10 @@ export default function Form({ props, action }) {
               Post
             </button>
           )}
+        </div>
+        <div className='input-group'>
+          <label htmlFor='file'>Cover Image</label>
+          <input type='file' name='file' onChange={(e) => onFileSelected(e)} />
         </div>
       </form>
       <div className='markdown-preview'>
